@@ -1,0 +1,21 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+extend-select = ["N", "SIM", "RET", "ANN"]
+
+[tool.mypy]
+strict = true
+files = ["src", "tests"]
+python_version = "3.12"
+untyped_calls_exclude = ["google.oauth2"]
+
+[[tool.mypy.overrides]]
+module = ["googleapiclient", "googleapiclient.*"]
+follow_imports = "skip"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

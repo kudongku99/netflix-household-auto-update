@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+.venv/bin/ruff check .
+.venv/bin/ruff format --check .
+if [ -n "$(find src tests -name '*.py' -print -quit)" ]; then
+  .venv/bin/mypy
+fi
+.venv/bin/pytest -q || [ $? -eq 5 ]
